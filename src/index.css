@@ -1,0 +1,278 @@
+/* Vital Bharat Design System & Custom Utility Classes */
+
+:root {
+  /* Color Palette */
+  --vb-primary: #0f172a;        /* Deep Navy Blue */
+  --vb-primary-light: #1e293b;  /* Mid-Navy */
+  --vb-secondary: #0284c7;      /* Trustworthy Blue */
+  --vb-secondary-hover: #0369a1;
+  --vb-accent: #0d9488;         /* Teal Accent */
+  --vb-accent-light: #ccfbf1;   /* Light Teal Background */
+  --vb-accent-cyan: #06b6d4;    /* Cyan Highlight */
+  --vb-bg: #f8fafc;             /* Slate White Background */
+  --vb-white: #ffffff;
+  --vb-text-dark: #0f172a;
+  --vb-text-muted: #64748b;
+  --vb-border: #e2e8f0;
+  
+  /* Font Stack */
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  /* Transitions */
+  --transition-fast: all 0.2s ease-in-out;
+  --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base resets & layout */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Offset for sticky navbar */
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--vb-bg);
+  color: var(--vb-text-dark);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  border: none;
+  min-height: 100vh;
+  display: block;
+}
+
+/* Typography Extensions */
+.text-vb-primary { color: var(--vb-primary); }
+.text-vb-secondary { color: var(--vb-secondary); }
+.text-vb-accent { color: var(--vb-accent); }
+.text-vb-muted { color: var(--vb-text-muted); }
+
+.bg-vb-primary { background-color: var(--vb-primary); }
+.bg-vb-primary-light { background-color: var(--vb-primary-light); }
+.bg-vb-secondary { background-color: var(--vb-secondary); }
+.bg-vb-accent-light { background-color: var(--vb-accent-light); }
+.bg-vb-slate { background-color: #f1f5f9; }
+
+/* Custom Glassmorphism Navbar */
+.vb-navbar {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  transition: var(--transition-normal);
+  z-index: 1050;
+}
+
+.vb-navbar.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08);
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.vb-nav-link {
+  font-weight: 500;
+  color: var(--vb-primary-light);
+  position: relative;
+  transition: var(--transition-fast);
+}
+
+.vb-nav-link:hover {
+  color: var(--vb-secondary);
+}
+
+.vb-nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--vb-secondary);
+  transition: var(--transition-normal);
+}
+
+.vb-nav-link:hover::after {
+  width: 100%;
+}
+
+/* Custom Buttons with Premium Micro-animations */
+.btn-vb-primary {
+  background-color: var(--vb-secondary);
+  color: var(--vb-white);
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--vb-secondary);
+  transition: var(--transition-normal);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.2);
+}
+
+.btn-vb-primary:hover {
+  background-color: var(--vb-secondary-hover);
+  border-color: var(--vb-secondary-hover);
+  color: var(--vb-white);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.3);
+}
+
+.btn-vb-outline {
+  background-color: transparent;
+  color: var(--vb-primary);
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: 2px solid var(--vb-primary-light);
+  transition: var(--transition-normal);
+}
+
+.btn-vb-outline:hover {
+  background-color: var(--vb-primary);
+  color: var(--vb-white);
+  transform: translateY(-2px);
+}
+
+.btn-vb-accent {
+  background-color: var(--vb-accent);
+  color: var(--vb-white);
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 8px;
+  border: 1px solid var(--vb-accent);
+  transition: var(--transition-normal);
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2);
+}
+
+.btn-vb-accent:hover {
+  background-color: #0b7a70;
+  border-color: #0b7a70;
+  color: var(--vb-white);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(13, 148, 136, 0.3);
+}
+
+/* Premium Card Effects (Hover-Zoom & Shadow Glide) */
+.vb-card {
+  background-color: var(--vb-white);
+  border: 1px solid var(--vb-border);
+  border-radius: 16px;
+  transition: var(--transition-normal);
+}
+
+.vb-hover-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.1) !important;
+  border-color: rgba(2, 132, 199, 0.3);
+}
+
+/* Subtle glow gradients */
+.gradient-bg {
+  background: radial-gradient(circle at 10% 20%, rgba(2, 132, 199, 0.05) 0%, rgba(6, 182, 212, 0.03) 90.1%);
+}
+
+.hero-glow-1 {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.15) 0%, rgba(2, 132, 199, 0) 70%);
+  top: 10%;
+  right: 5%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero-glow-2 {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(13, 148, 136, 0.1) 0%, rgba(13, 148, 136, 0) 70%);
+  bottom: 10%;
+  left: 5%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Contact Form CSS styles */
+.form-control:focus {
+  border-color: var(--vb-secondary);
+  box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
+}
+
+/* Partner Logos Section */
+.partner-logo-box {
+  background: var(--vb-white);
+  border: 1px solid var(--vb-border);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+  transition: var(--transition-normal);
+}
+
+.partner-logo-box:hover {
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+  border-color: rgba(13, 148, 136, 0.2);
+}
+
+/* Micro animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.vb-floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Typography styles */
+.section-title {
+  font-weight: 700;
+  font-size: 2.25rem;
+  color: var(--vb-primary);
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.75rem;
+  }
+}
+
+.section-subtitle {
+  color: var(--vb-accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 0.875rem;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--vb-primary);
+}
+
+@media (max-width: 991px) {
+  .hero-title {
+    font-size: 2.75rem;
+  }
+}
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 2.25rem;
+  }
+}
