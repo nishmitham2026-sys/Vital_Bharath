@@ -35,20 +35,36 @@ const countryFlags = {
 
 const GOOGLE_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxpQ2Kozx8k1aIHdZaXgGxmETozzcWssAMRKAQKyknWUJljDMgWljf3NcmtEthWFWr0/exec';
 
-// Detect user device type (Mobile, Tablet, Desktop)
+// Detect user device type and operating system
 const getDeviceType = () => {
   try {
-    if (typeof navigator === 'undefined') return 'Desktop';
+    if (typeof navigator === 'undefined') return 'Desktop (Unknown)';
     const ua = navigator.userAgent;
+    const platform = navigator.platform || '';
+
+    let os = 'Unknown';
+    if (/iPad|iPhone|iPod/.test(ua) || (platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+      os = 'iOS';
+    } else if (/Android/i.test(ua)) {
+      os = 'Android';
+    } else if (/Mac/i.test(ua)) {
+      os = 'macOS';
+    } else if (/Win/i.test(ua)) {
+      os = 'Windows';
+    } else if (/Linux/i.test(ua)) {
+      os = 'Linux';
+    }
+
+    let device = 'Desktop';
     if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
-      return 'Tablet';
+      device = 'Tablet';
+    } else if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/i.test(ua)) {
+      device = 'Mobile';
     }
-    if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/i.test(ua)) {
-      return 'Mobile';
-    }
-    return 'Desktop';
+
+    return `${device} (${os})`;
   } catch (e) {
-    return 'Desktop';
+    return 'Desktop (Unknown)';
   }
 };
 
