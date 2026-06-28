@@ -1,3 +1,4 @@
+// Trigger redeployment under GitHub Actions settings
 import { useState, useEffect, useRef } from 'react';
 
 // Help map timezones to countries as a lookup fallback
