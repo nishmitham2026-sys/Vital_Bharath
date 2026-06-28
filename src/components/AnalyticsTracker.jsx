@@ -35,6 +35,23 @@ const countryFlags = {
 
 const GOOGLE_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxpQ2Kozx8k1aIHdZaXgGxmETozzcWssAMRKAQKyknWUJljDMgWljf3NcmtEthWFWr0/exec';
 
+// Detect user device type (Mobile, Tablet, Desktop)
+const getDeviceType = () => {
+  try {
+    if (typeof navigator === 'undefined') return 'Desktop';
+    const ua = navigator.userAgent;
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+      return 'Tablet';
+    }
+    if (/Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/i.test(ua)) {
+      return 'Mobile';
+    }
+    return 'Desktop';
+  } catch (e) {
+    return 'Desktop';
+  }
+};
+
 // Format seconds to HH:MM:SS format (e.g., 00:10:07)
 const formatSecondsToHMS = (secs) => {
   const h = Math.floor(secs / 3600).toString().padStart(2, '0');
@@ -47,26 +64,30 @@ const formatSecondsToHMS = (secs) => {
 const sendTelemetry = (location, duration, page) => {
   try {
     const rawSeconds = Number(duration || 0);
+    const device = getDeviceType();
 
     const params = new URLSearchParams({
       location: String(location || 'India'),
       duration: String(rawSeconds),
-      page: String(page || 'home')
+      page: String(page || 'home'),
+      device: device
     });
 
     const payload = {
       location: location || 'India',
       duration: rawSeconds,
-      page: page || 'home'
+      page: page || 'home',
+      device: device
     };
 
-    console.log(`[Analytics] Sending telemetry - Location: ${location}, Duration: ${rawSeconds}s, Page: ${page}`);
+    console.log(`[Analytics] Sending telemetry - Location: ${location}, Duration: ${rawSeconds}s, Page: ${page}, Device: ${device}`);
 
     const url = `${GOOGLE_WEB_APP_URL}?${params.toString()}`;
 
     // Use navigator.sendBeacon if available for reliable unload transmissions
     if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
-      const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+      // Use text/plain to avoid CORS preflight (OPTIONS) requests which Google Apps Script doesn't support
+      const blob = new Blob([JSON.stringify(payload)], { type: 'text/plain' });
       const beaconSent = navigator.sendBeacon(url, blob);
       if (beaconSent) {
         console.log('[Analytics] Telemetry queued successfully via sendBeacon');
@@ -79,7 +100,7 @@ const sendTelemetry = (location, duration, page) => {
       method: 'POST',
       mode: 'no-cors',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'text/plain'
       },
       body: JSON.stringify(payload),
       keepalive: true
