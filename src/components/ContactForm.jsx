@@ -25,7 +25,7 @@ export default function ContactForm() {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = 'Full Name is required';
     if (!formData.organization.trim()) newErrors.organization = 'Organization Name is required';
-    
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else {
@@ -34,9 +34,9 @@ export default function ContactForm() {
         newErrors.email = 'Please enter a valid email address';
       }
     }
-    
+
     if (!formData.message.trim()) newErrors.message = 'Message details are required';
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -50,7 +50,7 @@ export default function ContactForm() {
     // Simulate API request delay
     setTimeout(() => {
       setSubmitting(false);
-      
+
       // SweetAlert2 Interception
       Swal.fire({
         title: 'Inquiry Submitted Successfully!',
@@ -93,7 +93,7 @@ export default function ContactForm() {
             <div className="bg-vb-primary text-white p-5 rounded-4 h-100 d-flex flex-column justify-content-between position-relative overflow-hidden">
               {/* Abstract overlay graphics */}
               <div className="position-absolute" style={{ top: '-10%', left: '-10%', width: '200px', height: '200px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(2, 132, 199, 0.15) 0%, transparent 70%)' }}></div>
-              
+
               <div>
                 <h4 className="fw-bold mb-4">Contact Information</h4>
                 <p className="text-light mb-5" style={{ opacity: 0.85 }}>
@@ -107,7 +107,7 @@ export default function ContactForm() {
                   <div>
                     <h6 className="fw-bold mb-1 text-light">Corporate Headquarters</h6>
                     <p className="small text-light mb-0" style={{ opacity: 0.8 }}>
-                      Vital Bharat HQ, 4th Block, Koramangala,<br />Bengaluru, Karnataka - 560034, India
+                      Nagarbhavi,Bengaluru
                     </p>
                   </div>
                 </div>
@@ -150,12 +150,12 @@ export default function ContactForm() {
             <div className="card border-light p-4 p-md-5 shadow-lg rounded-4 h-100 vb-card">
               <form onSubmit={handleSubmit} noValidate>
                 <div className="row g-4">
-                  
+
                   {/* Full Name */}
                   <div className="col-md-6">
                     <label htmlFor="name" className="form-label fw-semibold text-vb-primary">Full Name *</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       className={`form-control py-2.5 ${errors.name ? 'is-invalid' : ''}`}
                       id="name"
                       name="name"
@@ -169,8 +169,8 @@ export default function ContactForm() {
                   {/* Organization Name */}
                   <div className="col-md-6">
                     <label htmlFor="organization" className="form-label fw-semibold text-vb-primary">Organization *</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       className={`form-control py-2.5 ${errors.organization ? 'is-invalid' : ''}`}
                       id="organization"
                       name="organization"
@@ -184,8 +184,8 @@ export default function ContactForm() {
                   {/* Work Email */}
                   <div className="col-md-6">
                     <label htmlFor="email" className="form-label fw-semibold text-vb-primary">Work Email *</label>
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       className={`form-control py-2.5 ${errors.email ? 'is-invalid' : ''}`}
                       id="email"
                       name="email"
@@ -199,9 +199,9 @@ export default function ContactForm() {
                   {/* Partnership Type */}
                   <div className="col-md-6">
                     <label htmlFor="partnershipType" className="form-label fw-semibold text-vb-primary">Partnership Focus</label>
-                    <select 
-                      className="form-select py-2.5" 
-                      id="partnershipType" 
+                    <select
+                      className="form-select py-2.5"
+                      id="partnershipType"
                       name="partnershipType"
                       value={formData.partnershipType}
                       onChange={handleChange}
@@ -217,11 +217,11 @@ export default function ContactForm() {
                   {/* Message Detail */}
                   <div className="col-12">
                     <label htmlFor="message" className="form-label fw-semibold text-vb-primary">Message / Partnership Scope *</label>
-                    <textarea 
+                    <textarea
                       className={`form-control ${errors.message ? 'is-invalid' : ''}`}
-                      id="message" 
+                      id="message"
                       name="message"
-                      rows="4" 
+                      rows="4"
                       placeholder="Please briefly describe your rural reach, active clinic networks, or campaign timelines..."
                       value={formData.message}
                       onChange={handleChange}
@@ -231,8 +231,8 @@ export default function ContactForm() {
 
                   {/* Submit Button */}
                   <div className="col-12 mt-4">
-                    <button 
-                      type="submit" 
+                    <button
+                      type="submit"
                       className="btn btn-vb-accent w-100 py-3 d-flex align-items-center justify-content-center gap-2"
                       disabled={true}
                       id="contact-submit-btn"
